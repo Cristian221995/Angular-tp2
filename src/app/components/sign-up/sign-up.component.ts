@@ -12,7 +12,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class SignUpComponent implements OnInit {
   user: User = new User();
   UserForm: FormGroup;
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
     this.UserForm = new FormGroup({
@@ -22,20 +24,27 @@ export class SignUpComponent implements OnInit {
         [Validators.required]),
     });
   }
-  get email() { return this.UserForm.get('email'); }
-  get password() { return this.UserForm.get('password'); }
+
+  get email() {
+    return this.UserForm.get('email');
+  }
+
+  get password() {
+    return this.UserForm.get('password');
+  }
+
   addUser() {
     this.user.email = this.email.value;
     this.user.password = this.password.value;
     console.log(this.user);
     this.userService.add(this.user).subscribe(
       response => {
+        console.log('////Response', response);
         window.alert('User added correctly');
         this.router.navigateByUrl('login');
       },
-    error => {
-      console.log(error);
-    });
+      error => {
+        console.log(error);
+      });
   }
-
 }
