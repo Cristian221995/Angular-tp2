@@ -9,45 +9,31 @@ import {ProductService} from '../../services/product.service';
 })
 export class ListComponent implements OnInit {
   productList = new Array<Product>();
-  qProducts: number;
+  direction = false;
 
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    const observable = this.productService.getAll(1);
+    const observable = this.productService.getAll(null, null, true);
     observable.subscribe( response => {
       console.log(response);
       this.productList = response.items;
-      this.qProducts = response.total / 100;
     },
     error => {
       console.log(error);
     });
   }
   changePage(event) {
-    this.productService.getAll(event - 1).subscribe((products) => {
-      this.productList = products.items;
-    });
-  }
-/*
-  nextPage() {
-    const observable = this.productService.getAll(true, false);
-    observable.subscribe( response => {
-        console.log(response);
-        this.productList = response.items;
-      },
-      error => {
-        console.log(error);
+    this.productService.getAll(event, null, this.direction)
+      .subscribe(next => {
+        this.productList = next.items;
       });
   }
-  previousPage() {
-    const observable = this.productService.getAll(false, true);
-    observable.subscribe( response => {
-        console.log(response);
-        this.productList = response.items;
-      },
-      error => {
-        console.log(error);
+  order(method: string) {
+    this.direction = this.direction === true ? false : true;
+    this.productService.getAll(null, method, this.direction)
+      .subscribe(next => {
+        this.productList = next.items;
       });
-  }*/
+  }
 }

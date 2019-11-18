@@ -9,6 +9,17 @@
             <div class="form-label-group">
               <input type="email" id="inputEmail" class="form-control" placeholder="Email address" formControlName="email">
               <br>
+              <div *ngIf="email.dirty && email.touched && email.errors" class = "alert alert-danger">
+                <div *ngIf="email.errors?.required">
+                  Email required.
+                </div>
+                <div *ngIf="email.errors?.email">
+                  Email not valid.
+                </div>
+                <div *ngIf="email.errors?.userExists">
+                  Email already exist.
+                </div>
+              </div>
             </div>
 
             <div class="form-label-group">

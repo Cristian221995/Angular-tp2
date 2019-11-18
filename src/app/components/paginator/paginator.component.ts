@@ -6,20 +6,16 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./paginator.component.css']
 })
 export class PaginatorComponent implements OnInit {
-
-  @Input()
-  total: number;
-
   @Output()
-  pageEvent: EventEmitter<number> = new EventEmitter();
-  page: number;
+  pageEvent: EventEmitter<boolean> = new EventEmitter();
+  page = 0;
 
   constructor() { }
 
   ngOnInit() {
   }
-  changePage(page: number) {
-    this.page = page;
-    this.pageEvent.emit(this.page);
+  changePage(change: boolean) {
+    this.pageEvent.emit(change);
+    this.page = change ? this.page += 1 : this.page -= 1;
   }
 }

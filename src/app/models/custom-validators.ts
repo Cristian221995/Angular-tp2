@@ -1,5 +1,6 @@
 import {ValidatorFn, AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import { UserService } from '../services/user.service';
+import {Observable} from 'rxjs';
 
 export class CustomValidator {
   static onlyLetters(): ValidatorFn {
@@ -14,16 +15,17 @@ export class CustomValidator {
         if (! control.value) {
           resolve(null);
         }
-        userService.checkIfEmailExists(control.value).then((response) => {
+        userService.checkIfEmailExists(control.value).subscribe(response => {
           resolve(null);
-        }).catch((error) => {
-          if (error.status === 409) {
-            resolve ({'userExists' : true});
-          } else if (error.status === 204) {
+        }, errors => {
+          if (errors.status === 409) {
+            resolve ({"userExists" : true});
+          } else if (errors.status === 204) {
             resolve (null);
           }
         });
       });
     };
   }
+
 }

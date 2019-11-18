@@ -8,16 +8,22 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class ProductService {
   url = 'https://utn2019-avanzada2-tp9.herokuapp.com/api/products';
   auth = 'Bearer' + ' ' + localStorage.getItem('token');
-  pag = 0;
+  pag = 1;
   size = 10;
+  method = 'productId';
+  direction: string;
 
   constructor(private http: HttpClient) { }
-  getAll(page): Observable<any> {
-    this.pag = page ? this.pag + page : this.pag;
+  getAll(action: boolean, method: string, direction: boolean): Observable<any> {
+    this.pag = method ? this.pag : (action ? this.pag += 1 : this.pag -= 1);
+    this.method = method ? this.method = method : this.method;
+    this.direction = direction ? 'ASC' : 'DESC';
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: this.auth })
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
     };
-    // @ts-ignore
-    return  this.http.get(this.url + '/?direction=ASC&orderBy=productId&page=' + this.pag + '&size' + this.size, httpOptions);
+    return this.http.get(this.url + '/?direction=' + this.direction + '&orderBy=' + this.method + '&page=' + this.pag + '&size=' +
+      this.size, httpOptions);
   }
 }

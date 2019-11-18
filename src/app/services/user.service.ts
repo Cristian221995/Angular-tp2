@@ -19,7 +19,7 @@ export class UserService {
       )};
     return this.http.post(this.url + 'sign-up' , user, httpOptions);
   }
-  checkIfEmailExists(email): Promise<any> {
-    return this.http.get('https://utn2019-avanzada2-tp9.herokuapp.com/users/identities?email=' + email).toPromise();
+  checkIfEmailExists(email): Observable<any> {
+    return this.http.get('https://utn2019-avanzada2-tp9.herokuapp.com/users/identities?email=' + email);
   }
 }

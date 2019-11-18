@@ -3,9 +3,9 @@
   <table class="table">
     <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
+      <th scope="col"><a (click)="order('productId')">#<i class="arrow-alt-up"></i></a></th>
+      <th scope="col"><a (click)="order('name')">Name<i class="arrow-alt-up"></i></a></th>
+      <th scope="col"><a (click)="order('description')">Description<i class="arrow-alt-up"></i></a></th>
     </tr>
     </thead>
     <tbody>
@@ -13,5 +13,5 @@
 
     </tbody>
   </table>
-  <app-paginator [total]='qProducts' (pageEvent)='changePage($event)'></app-paginator>
+  <app-paginator (pageEvent)='changePage($event)'></app-paginator>
 </div>
