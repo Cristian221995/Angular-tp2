@@ -11,13 +11,16 @@ export class CustomValidator {
   static emailExists(userService: UserService): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors> | null => {
       return new Promise((resolve, reject) => {
-        userService.checkIfEmailExists(control.value).subscribe(
-          response => {
-          resolve (null);
-        },
-          error => {
+        if (! control.value) {
+          resolve(null);
+        }
+        userService.checkIfEmailExists(control.value).then((response) => {
+          resolve(null);
+        }).catch((error) => {
           if (error.status === 409) {
-            resolve({userExist : true});
+            resolve ({'userExists' : true});
+          } else if (error.status === 204) {
+            resolve (null);
           }
         });
       });

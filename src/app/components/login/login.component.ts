@@ -3,6 +3,8 @@ import {User} from '../../models/user';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../guard/auth.service';
+import {CustomValidator} from "../../models/custom-validators";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   user: User = new User();
   loginForm: FormGroup;
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -25,16 +27,17 @@ export class LoginComponent implements OnInit {
   get email() { return this.loginForm.get('email'); }
   get password() { return this.loginForm.get('password'); }
   login() {
-    this.user.email = this.email.value;
-    this.user.password = this.password.value;
-    this.userService.login(this.user).subscribe(
+    this.user.email = this.loginForm.get('email').value;
+    this.user.password = this.loginForm.get('password').value;
+
+    const observable = this.authService.login(this.user);
+    observable.subscribe(
       response => {
-        console.log('/////Response', response);
+        this.router.navigate(['/list']);
       },
-      error => {
-        console.log(error);
+      errors => {
+          window.alert('Ha ocurrido un error');
       }
     );
   }
-
 }

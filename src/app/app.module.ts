@@ -11,7 +11,10 @@ import { NavComponent } from './components/nav/nav.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserService} from './services/user.service';
 import {User} from './models/user';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthInterceptorService} from './guard/auth-interceptor.service';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import {HttpClientModule} from '@angular/common/http';
     SignUpComponent,
     ListComponent,
     ListItemComponent,
-    NavComponent
+    NavComponent,
+    PaginatorComponent,
+    LogoutComponent
   ],
 imports: [
     BrowserModule,
@@ -31,7 +36,12 @@ imports: [
   ],
   providers: [
     User,
-    UserService
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

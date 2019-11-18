@@ -1,1 +1,17 @@
-<p>list works!</p>
+<div class="container card" style="width: 60rem; margin-top: 40px">
+  <h3>Product List</h3>
+  <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of productList" app-list-item [product] = product></tr>
+
+    </tbody>
+  </table>
+  <app-paginator [total]='qProducts' (pageEvent)='changePage($event)'></app-paginator>
+</div>
