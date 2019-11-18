@@ -4,7 +4,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../guard/auth.service';
-import {CustomValidator} from "../../models/custom-validators";
 
 @Component({
   selector: 'app-login',

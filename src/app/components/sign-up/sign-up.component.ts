@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../models/user';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CustomValidator} from '../../models/custom-validators';
+import {CustomValidatorEmail} from '../../models/custom-validator-email';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,13 +14,14 @@ export class SignUpComponent implements OnInit {
   user: User = new User();
   UserForm: FormGroup;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,
+              private emailValidator: CustomValidatorEmail) {
   }
 
   ngOnInit() {
     this.UserForm = new FormGroup({
       email: new FormControl(this.user.email,
-        [Validators.required, Validators.email], [CustomValidator.emailExists(this.userService)]),
+        [Validators.required, Validators.email], [this.emailValidator.validate.bind(this.emailValidator)]),
       password: new FormControl(this.user.password,
         [Validators.required]),
     });

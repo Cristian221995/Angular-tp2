@@ -1,11 +1,12 @@
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="container card" style="width: 60rem; margin-top: 40px">
   <h3>Product List</h3>
   <table class="table">
     <thead class="thead-dark">
     <tr>
-      <th scope="col"><a (click)="order('productId')">#<i class="arrow-alt-up"></i></a></th>
-      <th scope="col"><a (click)="order('name')">Name<i class="arrow-alt-up"></i></a></th>
-      <th scope="col"><a (click)="order('description')">Description<i class="arrow-alt-up"></i></a></th>
+      <th scope="col"><a (click)="order('productId')"><i class="fa fa-sort"></i>#</a></th>
+      <th scope="col"><a (click)="order('name')"><i class="fa fa-sort"></i>Name</a></th>
+      <th scope="col"><a (click)="order('description')"><i class="fa fa-sort"></i> Description</a></th>
     </tr>
     </thead>
     <tbody>
