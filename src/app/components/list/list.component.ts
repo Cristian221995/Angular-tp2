@@ -10,6 +10,8 @@ import {ProductService} from '../../services/product.service';
 export class ListComponent implements OnInit {
   productList = new Array<Product>();
   direction = false;
+  limit = 10;
+  quantity: number;
 
   constructor(private productService: ProductService) { }
 
@@ -18,6 +20,7 @@ export class ListComponent implements OnInit {
     observable.subscribe( response => {
       console.log(response);
       this.productList = response.items;
+      this.quantity = response.total;
     },
     error => {
       console.log(error);

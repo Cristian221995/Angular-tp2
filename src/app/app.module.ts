@@ -15,6 +15,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptorService} from './guard/auth-interceptor.service';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     ListItemComponent,
     NavComponent,
     PaginatorComponent,
-    LogoutComponent
+    LogoutComponent,
+    PageNotFoundComponent
   ],
 imports: [
     BrowserModule,

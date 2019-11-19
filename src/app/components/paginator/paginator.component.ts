@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class PaginatorComponent implements OnInit {
   @Output()
   pageEvent: EventEmitter<boolean> = new EventEmitter();
+  @Output()
   page = 0;
 
   constructor() { }
